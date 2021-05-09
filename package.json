@@ -2,13 +2,15 @@
   "name": "spacenest-cli",
   "version": "1.1.1",
   "description": "",
-  "main": "create-package.js",
+  "bin": {
+    "create-package": "dist/create-package.js"
+  },
   "files": [
     "bin/**/*"
   ],
   "scripts": {
-    "clean": "del bin/*",
-    "build": "tsc",
+    "clean": "del dist",
+    "build": "del dist && tsc",
     "watch": "tsc -w",
     "test": "node ./bin/create-service.js --directory packages demo-app"
   },

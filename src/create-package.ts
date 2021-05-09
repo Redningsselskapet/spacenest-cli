@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import appRootPath from "app-root-path";
 import {
   existsSync

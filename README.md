@@ -4,7 +4,7 @@ Scaffold a nestjs application with docker build setup, k8s infrastructure and de
 
 ## Configuration
 
-Add spacenest.config.json at root of your monorepo:
+Add spacenest.config.json at root.
 
 ```json
 {
@@ -12,10 +12,12 @@ Add spacenest.config.json at root of your monorepo:
   "imagePullSecret": "acr"
 }
 ```
+This will tell devspace tp use image pull secret in kubernets named acr. Changed for whatever you named it.
 
-Create a package (creates package under packages directory. Use --directory to override)
+
+Create a package creates a package under packages directory. Use **--directory \<dirname**\> option to set directory.
 
 ```bash
-create-package demo-app
+create-package --directory ./packages demo-app
 ```
 
