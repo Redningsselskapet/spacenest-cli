@@ -1,5 +1,11 @@
 import { execSync } from "child_process";
-import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import {
+  chmodSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from "fs";
 import { command } from "yargs";
 import { path as rootPath } from "app-root-path";
 import { dump } from "js-yaml";
@@ -53,6 +59,32 @@ export class AppController {
 writeFileSync(
   `${argv.directory}/${argv._[0]}/src/app.controller.ts`,
   appController
+);
+
+// add devspace to scripts section of package.json
+
+const packageJson = JSON.parse(
+  readFileSync(`${argv.directory}/${argv._[0]}/package.json`, "utf-8")
+);
+const packageJsonPartly = {
+  scripts: {
+    "devspace:build": "devspace build",
+    "devspace:deploy": "devspace deploy",
+  },
+};
+const scripts = {
+  ...packageJson.scripts,
+  ...{
+    "devspace:build": "devspace build",
+    "devspace:deploy": "devspace deploy",
+    "devspace:purge": "devspace purge"
+  },
+};
+packageJson.scripts = scripts;
+writeFileSync(
+  `${argv.directory}/${argv._[0]}/package.json`,
+  JSON.stringify(packageJson, null, 2),
+  { encoding: "utf-8" }
 );
 
 // Add Dockerfile, .ignoredockerfile
@@ -347,9 +379,7 @@ writeFileSync(
   "utf8"
 );
 
-const k8sYamlConfigStr = dump(
-  JSON.parse(k8sYamlConfig(argv._[0].toString()))
-);
+const k8sYamlConfigStr = dump(JSON.parse(k8sYamlConfig(argv._[0].toString())));
 
 writeFileSync(
   `${argv.directory}/${argv._[0]}/k8s/${argv._[0]}.config.dev.yaml`,
@@ -357,5 +387,4 @@ writeFileSync(
   "utf8"
 );
 
-
-console.log(`${argv._[0]} created! 📦`)
+console.log(`${argv._[0]} created! 📦`);
