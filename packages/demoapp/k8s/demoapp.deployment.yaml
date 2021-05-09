@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoapp
+  template:
+    metadata:
+      labels:
+        app: demoapp
+    spec:
+      containers:
+        - name: demoapp
+          image: banker.azurecr.io/app-demoapp
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 100m
+            limits:
+              memory: 1024Mi
+              cpu: 250m
+          envFrom:
+            - configMapRef:
+                name: demoapp-config
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: acr
