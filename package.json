@@ -6,7 +6,7 @@
     "create-package": "dist/create-package.js"
   },
   "files": [
-    "bin/**/*"
+    "dist/**/*"
   ],
   "scripts": {
     "clean": "del dist",
