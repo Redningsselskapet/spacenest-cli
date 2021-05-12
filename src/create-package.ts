@@ -12,26 +12,22 @@ import { getSpaceNestConfig, SpaceNestConfig } from "./lib/get-spacenest-config"
 const argv = command("name", "package name", {
   name: {
     description: "Name of the package",
-    alias: "n",
   },
 })
   .option("directory", {
-    alias: "d",
     description: "Relative path to the package folder",
     default: 'packages'
   })
   .option("conatainer-registry", {
-    alias: "r",
     description: "Use container registry",
     default: ''
   })
   .option('create-pull-secret', {
-    alias: 's',
     description: 'Create pull secret',
     default: false
   })
   .option('db', {
-    description: 'Deploy database (default: none, other: mysql, postgresql, mongodb)' ,
+    description: 'Deploy database (default: none, other: mysql, postgresql, mongodb)'
   })
   .help()
   .alias("help", "h")
@@ -44,7 +40,6 @@ const argv = command("name", "package name", {
 
 // Search for spacenest.config.json
 const config = getSpaceNestConfig()
-
 
 // override spaceconfig with console parameters
 config.containerRegistry = argv["conatainer-registry"] || config.containerRegistry

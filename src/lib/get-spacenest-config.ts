@@ -21,11 +21,12 @@ export const getSpaceNestConfig = function (): SpaceNestConfig {
       process.exit(1)
     }
   }
-  console.log("⚠ No valid spaceconfig found in path. Using defaults");
-  return {
+  console.log("No valid spaceconfig found in path. Using defaults");
+  const defaultConfig: SpaceNestConfig =  {
     containerRegistry: "local",
     createPullSecret: false,
     directory: "packages",
     db: "none",
   };
+  return defaultConfig;
 };

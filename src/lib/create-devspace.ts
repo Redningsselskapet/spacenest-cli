@@ -8,7 +8,9 @@ export const createDevSpace = function (
   pkgDirectory: string,
   config: SpaceNestConfig
 ) {
-  const devspaceYaml = dump(JSON.parse(devspaceJson(pkgName, config)));
+  const jsonStr = devspaceJson(pkgName, config)
+  const parsed = JSON.parse(jsonStr)
+  const devspaceYaml = dump(parsed);
   writeFileSync(
     `${pkgDirectory}/${pkgName}/devspace.yaml`,
     devspaceYaml,
@@ -20,6 +22,7 @@ export const createDevSpace = function (
 
 const devspaceJson = function (pkgName: string, config: SpaceNestConfig): any {
   const db = getDatabaseDeployment(pkgName, config.db);
+  
   return `
   {
     "version": "v1beta10",
@@ -44,8 +47,7 @@ const devspaceJson = function (pkgName: string, config: SpaceNestConfig): any {
             "k8s/**"
           ]
         }
-      },
-      ${db}
+      } ${db ? ',' + db : ''}
     ],
     "dev": {
       "ports": [

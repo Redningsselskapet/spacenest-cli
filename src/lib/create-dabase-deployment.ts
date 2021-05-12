@@ -19,7 +19,7 @@ export const getDatabaseDeployment = function (
     }
 
     case "none": {
-      return ``;
+      return '';
       break;
     }
     default: {
