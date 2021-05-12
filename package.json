@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "clean": "del dist",
-    "build": "del dist && tsc",
+    "build": "del dist && del packages && tsc",
     "watch": "tsc -w",
     "test": "node ./bin/create-service.js --directory packages demo-app"
   },
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/app-root-path": "^1.2.4",
     "@types/node": "^15.0.2",
+    "@types/yargs-interactive": "^2.1.1",
     "del-cli": "^3.0.1",
     "typescript": "^4.2.4"
   },
@@ -28,6 +29,7 @@
     "app-root-path": "^3.0.0",
     "js-yaml": "^4.1.0",
     "write-yaml": "^1.0.0",
-    "yargs": "^17.0.1"
+    "yargs": "^17.0.1",
+    "yargs-interactive": "^3.0.0"
   }
 }

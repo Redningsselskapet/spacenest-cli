@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "fs";
 import { dump } from "js-yaml";
-import { SpaceNestConfig } from "./read-config";
+import { SpaceNestConfig } from "./get-spacenest-config";
 
 export const createK8s = function(pkgName: string, pkgDirectory: string, config: SpaceNestConfig) {
 
@@ -125,7 +125,9 @@ const k8sYamlConfig = function (pkgName: string): string {
     "metadata": {
       "name": "${pkgName}-config"
     },
-    "data": {}
+    "data": {
+      
+    }
   }
   `;
 };

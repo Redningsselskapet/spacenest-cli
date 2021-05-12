@@ -1,5 +1,0 @@
-{
-  "containerRegistry": "banker.azurecr.io",
-  "imagePullSecret": "acr"
-}
-

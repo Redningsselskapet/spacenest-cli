@@ -20,3 +20,4 @@ writeFileSync(`${path}/Dockerfile`, dockerfile);
 writeFileSync(`${path}/.dockerignore`, dockerignore);
 
 }
+

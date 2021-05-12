@@ -1,6 +1,7 @@
 import { chmodSync, writeFileSync } from "fs";
 import { dump } from "js-yaml";
-import { SpaceNestConfig } from "./read-config";
+import { getDatabaseDeployment } from "./create-dabase-deployment";
+import { SpaceNestConfig } from "./get-spacenest-config";
 
 export const createDevSpace = function (
   pkgName: string,
@@ -14,22 +15,24 @@ export const createDevSpace = function (
     "utf8"
   );
 
-  createDevSpaceStartup(pkgName, pkgDirectory)
+  createDevSpaceStartup(pkgName, pkgDirectory);
 };
 
 const devspaceJson = function (pkgName: string, config: SpaceNestConfig): any {
+  const db = getDatabaseDeployment(pkgName, config.db);
   return `
   {
     "version": "v1beta10",
     "images": {
       "app-${pkgName}": {
         "image": "${config.containerRegistry}/app-${pkgName}",
+        "createPullSecret": ${config.createPullSecret},
         "dockerfile": "./Dockerfile",
         "build": {
           "kaniko": {
             "cache": true
           },
-          "disabled": true
+          "disabled": false
         }
       }
     },
@@ -41,7 +44,8 @@ const devspaceJson = function (pkgName: string, config: SpaceNestConfig): any {
             "k8s/**"
           ]
         }
-      }
+      },
+      ${db}
     ],
     "dev": {
       "ports": [

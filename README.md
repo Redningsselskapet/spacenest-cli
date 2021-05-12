@@ -8,8 +8,10 @@ Add spacenest.config.json at root.
 
 ```json
 {
-  "containerRegistry": "banker.azurecr.io",
-  "imagePullSecret": "acr"
+  "containerRegistry": "myregistry.azurecr.io",
+  "createPullSecret": true,
+  "directory": "packages",
+  "db": "mysql"
 }
 ```
 This will tell devspace tp use image pull secret in kubernets named acr. Changed for whatever you named it.
